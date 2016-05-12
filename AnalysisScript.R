@@ -32,3 +32,19 @@
 # From the data set in step 4, creates a second, independent tidy data
 # set with the average of each variable for each activity and each subject.
 # Good luck!
+
+# First let's download the raw data that we want to work with into a "data" directory:
+
+if (!file.exists("data")){
+  dir.create("data")
+}
+
+fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+fileDest <- "./data/GCDdataset.zip"
+
+if (!file.exists(fileDest)){
+  download.file(fileURL, fileDest, method = "curl")
+  # Now let's unzip the file contents
+  unzip(fileDest)
+}
+
