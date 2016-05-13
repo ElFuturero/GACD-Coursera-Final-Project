@@ -59,8 +59,21 @@ if (!file.exists(fileDest)){
 featuresVector <- read.table("./data/UCI HAR Dataset/features.txt")[[2]]
 featuresVector <- as.vector(featuresVector, mode = "character")
 
-# Now we want to create a logical vector that returns TRUE if the text in the vector
-# contains either "mean" or "std", regardless of the letter case.
+# Now we want to create a l vector that returns the index of the columns that
+# contain either "mean" or "std", regardless of the letter case.
 
-featuresLogical <- grepl("(mean|std)", featuresVector, ignore.case = TRUE)
+featuresSelect <- grep("(mean|std)", featuresVector, ignore.case = TRUE)
 
+# Now, let's read the test and train data into data frames
+
+testFrame <- read.table("./data/UCI HAR Dataset/test/X_test.txt",
+                        col.names = featuresVector) %>%
+  tbl_df %>% # we turn it into a dplyr data frame
+  select(featuresSelect) # and then we select the columns that we want
+
+# We do the same for the train dataset
+
+trainFrame <- read.table("./data/UCI HAR Dataset/train/X_train.txt",
+                         col.names = featuresVector) %>%
+  tbl_df %>%
+  select(featuresSelect)
