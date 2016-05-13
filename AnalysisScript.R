@@ -85,7 +85,14 @@ joinFrame <- full_join(testFrame, trainFrame)
 
 # Now we will go ahead and create the subject column.
 
+testSubject <- read.table("./data/UCI HAR Dataset/test/subject_test.txt", col.names = "Subject")
+trainSubject <- read.table("./data/UCI HAR Dataset/train/subject_train.txt", col.names = "Subject")
+
+# We will then join the two vectors
+subjectCol <- full_join(testSubject, trainSubject)
+
 # We will match the numbers on both the test and training "subject.txt" files to 
 # the appropriate subject by prefixing every number with the word "Subject".
 
-# We will then join the two vectors
+subjectCol <- sapply(subjectCol, function(x) paste0("Subject", x), USE.NAMES=FALSE)
+
