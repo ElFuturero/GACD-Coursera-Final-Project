@@ -77,3 +77,8 @@ trainFrame <- read.table("./data/UCI HAR Dataset/train/X_train.txt",
                          col.names = featuresVector) %>%
   tbl_df %>%
   select(featuresSelect)
+
+# Now we join the two data frames with the test data on top of the training data.
+# It will default to join by the common column names.
+
+joinFrame <- full_join(testFrame, trainFrame)
