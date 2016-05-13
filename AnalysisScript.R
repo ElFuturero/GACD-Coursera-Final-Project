@@ -96,3 +96,9 @@ subjectCol <- full_join(testSubject, trainSubject)
 
 subjectCol <- sapply(subjectCol, function(x) paste0("Subject", x), USE.NAMES=FALSE)
 
+# Now we will create the Activity column
+testActivity <- read.table("./data/UCI HAR Dataset/test/y_test.txt", col.names = "Activity")
+trainActivity <- read.table("./data/UCI HAR Dataset/train/y_train.txt", col.names = "Activity")
+activityCol <- full.join(testActivity, trainActivity)
+
+# Now we will create a list of the activity names
