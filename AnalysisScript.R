@@ -82,3 +82,10 @@ trainFrame <- read.table("./data/UCI HAR Dataset/train/X_train.txt",
 # It will default to join by the common column names.
 
 joinFrame <- full_join(testFrame, trainFrame)
+
+# Now we will go ahead and create the subject column.
+
+# We will match the numbers on both the test and training "subject.txt" files to 
+# the appropriate subject by prefixing every number with the word "Subject".
+
+# We will then join the two vectors
