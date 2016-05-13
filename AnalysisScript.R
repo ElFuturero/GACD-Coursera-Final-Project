@@ -33,7 +33,11 @@
 # set with the average of each variable for each activity and each subject.
 # Good luck!
 
-# First let's download the raw data that we want to work with into a "data" directory:
+# First let's load the dplyr library
+
+library(dplyr)
+
+# Then let's download the raw data that we want to work with into a "data" directory:
 
 if (!file.exists("data")){
   dir.create("data")
@@ -45,6 +49,18 @@ fileDest <- "./data/GCDdataset.zip"
 if (!file.exists(fileDest)){
   download.file(fileURL, fileDest, method = "curl")
   # Now let's unzip the file contents
-  unzip(fileDest)
+  unzip(fileDest, exdir = "./data" )
 }
+
+# Now let's create a logical vector that will have the columns that we want to use from
+# the X_test.txt files. It starts as a factor vector and then we'll convert it to a
+# character vector.
+
+featuresVector <- read.table("./data/UCI HAR Dataset/features.txt")[[2]]
+featuresVector <- as.vector(featuresVector, mode = "character")
+
+# Now we want to create a logical vector that returns TRUE if the text in the vector
+# contains either "mean" or "std", regardless of the letter case.
+
+featuresLogical <- grepl("(mean|std)", featuresVector, ignore.case = TRUE)
 
