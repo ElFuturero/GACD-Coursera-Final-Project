@@ -89,7 +89,7 @@ testSubject <- read.table("./data/UCI HAR Dataset/test/subject_test.txt", col.na
 trainSubject <- read.table("./data/UCI HAR Dataset/train/subject_train.txt", col.names = "Subject")
 
 # We will then join the two vectors
-subjectCol <- full_join(testSubject, trainSubject)
+subjectCol <- rbind(testSubject, trainSubject)
 
 # We will match the numbers on both the test and training "subject.txt" files to 
 # the appropriate subject by prefixing every number with the word "Subject".
@@ -97,8 +97,20 @@ subjectCol <- full_join(testSubject, trainSubject)
 subjectCol <- sapply(subjectCol, function(x) paste0("Subject", x), USE.NAMES=FALSE)
 
 # Now we will create the Activity column
-testActivity <- read.table("./data/UCI HAR Dataset/test/y_test.txt", col.names = "Activity")
-trainActivity <- read.table("./data/UCI HAR Dataset/train/y_train.txt", col.names = "Activity")
-activityCol <- full.join(testActivity, trainActivity)
+testActivity <- read.table("./data/UCI HAR Dataset/test/y_test.txt", col.names = "Activity",
+                           colClasses = "character")
+trainActivity <- read.table("./data/UCI HAR Dataset/train/y_train.txt", col.names = "Activity",
+                            colClasses = "character")
+activityCol <- rbind(testActivity, trainActivity)
 
 # Now we will create a list of the activity names
+activityLabels <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
+activityList <- activityLabels$V2
+names(activityList) <- activityLabels$V1
+
+# Now we want to iterate over this activity list in order to change from numbers to
+# a descriptive activity name
+# for(name in names(activityList)){
+#  activityCol <-
+# }
+
