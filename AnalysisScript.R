@@ -107,10 +107,16 @@ activityCol <- rbind(testActivity, trainActivity)
 activityLabels <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
 activityList <- activityLabels$V2
 names(activityList) <- activityLabels$V1
+activityList <- lapply(activityList, as.character)
 
-# Now we want to iterate over this activity list in order to change from numbers to
-# a descriptive activity name
-# for(name in names(activityList)){
-#  activityCol <-
-# }
+# Now we want to iterate over the activityCol using the activityList to make the
+# required text substitutions
 
+for(i in 1:length(activityCol[,1])){
+  activityCol[i,1] <- activityList[[as.numeric(activityCol[i,1])]]
+}
+
+# Then we add the subject & activity columns into a new data frame
+subjectAct <- cbind(subjectCol, activityCol) %>%
+  tbl_df %>%
+  mutate(Activity = as.factor(Activity)) # and we turn the Activity column into a factor
