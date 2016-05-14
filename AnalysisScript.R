@@ -120,3 +120,15 @@ for(i in 1:length(activityCol[,1])){
 subjectAct <- cbind(subjectCol, activityCol) %>%
   tbl_df %>%
   mutate(Activity = as.factor(Activity)) # and we turn the Activity column into a factor
+
+# Then we join this new data frame with the first one that we made
+
+finalFrame <- cbind(subjectAct,joinFrame) %>%
+  tbl_df %>%
+  group_by(Subject, Activity) # and we make sure to group this new frame by subject and activity
+
+# Now we create a summary Frame that gives the mean of each of the variables by activity and subject
+
+summaryFrame <- summarize_each(finalFrame, funs(mean))
+
+
