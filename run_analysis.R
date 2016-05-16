@@ -132,8 +132,8 @@ finalFrame <- cbind(subjectAct,joinFrame) %>%
 summaryFrame <- summarize_each(finalFrame, funs(mean))
 
 # Finally we want to save the tidy dataset
-fileWrite <- "./finalDataset.csv"
-write.csv(summaryFrame, fileWrite)
+fileWrite <- "./finalDataset.txt"
+write.table (summaryFrame, fileWrite, row.names = FALSE)
 
 
 
